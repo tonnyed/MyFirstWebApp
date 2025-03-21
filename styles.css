@@ -6,6 +6,7 @@ body {
     color: #333;
 }
 
+
 header {
     position: relative;
     text-align: center;
@@ -51,8 +52,8 @@ main {
 }
 
 section h2 {
-    font-size: calc(0.7rem + 2vw);
-    margin-bottom: 10px;
+    font-size: calc(1.0rem + 2vw);
+    margin-bottom: 5px;
 }
 
 section ul {
@@ -60,7 +61,12 @@ section ul {
     padding: 0;
 }
 
-/* Flexbox styling for the image*/
+li {
+    font-size: calc(0.8rem + 0.5vw); /* Makes the font size dynamic */
+    margin-bottom: 10px;
+ }
+
+/* Flexbox styling for the image gallery */
 .gallery {
     display: flex;
     flex-wrap: wrap;
@@ -91,7 +97,7 @@ footer {
     margin-top: 20px;
 }
 
-/* Responsive Design */
+/* Media Queries for Responsive Design */
 @media (max-width: 768px) {
     header img {
         max-height: 350px;
@@ -101,4 +107,64 @@ footer {
         font-size: calc(1.2rem + 3vw);
     }
 
-    p
+    p {
+        font-size: calc(0.4rem + 1.5vw);
+    }
+
+    section h2 {
+        font-size: calc(1.0rem + 3vw);
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+
+    li {
+        font-size: calc(0.5rem + 1.5vw);
+    }
+
+    .gallery-item {
+        flex: 1 1 calc(50% - 15px); /* 2 columns layout for medium screens */
+        max-width: calc(50% - 15px);
+    }
+
+    footer {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    header img {
+        max-height: 300px;
+    }
+
+    h1 {
+        font-size: calc(1rem + 4vw);
+    }
+
+    section h2 {
+        font-size: calc(0.8rem + 4vw);
+    }
+
+    p {
+        font-size: calc(0.5rem + 2vw);
+    }
+
+    ul {
+        padding-left: 15px;
+    }
+
+    li {
+        font-size: calc(0.6rem + 2vw);
+        margin-bottom: 8px;
+    }
+
+    .gallery-item {
+        flex: 1 1 calc(100% - 15px); /* 1 column layout for small screens */
+        max-width: calc(100% - 15px);
+    }
+
+    footer {
+        padding: 20px;
+    }
+}
