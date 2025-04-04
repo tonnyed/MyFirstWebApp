@@ -67,7 +67,6 @@
             padding: 0;
         }
 
-        /* Flexbox styling for the image gallery */
         .gallery {
             display: flex;
             flex-wrap: wrap;
@@ -76,14 +75,14 @@
         }
 
         .gallery-item {
-            flex: 1 1 calc(25% - 15px); /* 4 columns layout */
+            flex: 1 1 calc(25% - 15px);
             max-width: calc(25% - 15px);
             margin-bottom: 15px;
             display: flex;
             flex-direction: column;
             position: relative;
             transition: transform 0.3s ease;
-            cursor: move; /* Make it clear that images can be moved */
+            cursor: move;
         }
 
         .gallery-item img {
@@ -98,9 +97,28 @@
             border: 5px solid blue; /* Highlight border color */
         }
 
-        /* Popout effect on hover */
         .gallery-item:hover img {
-            transform: scale(1.1); /* Makes the image "pop out" */
+            transform: scale(1.1);
+        }
+
+        .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            text-align: center;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        .gallery-item:hover .text-overlay {
+            opacity: 1;
+            visibility: visible;
         }
 
         footer {
@@ -111,7 +129,6 @@
             margin-top: 20px;
         }
 
-        /* Styling for the form */
         .form-container {
             margin: 20px 0;
         }
@@ -132,27 +149,14 @@
 <main>
     <p>Click the button below to go to the second page where I say "Welcome to my second page".</p>
 
-    <!-- Button that links to the second page -->
     <div class="button-container">
         <a href="second-page.html" class="btn">MySecondWebApp</a>
     </div>
-    <!-- Button that links to the weekfour javascript page -->
     <div class="button-container" typeof="button">
         <a href="index.html" class="btn">WeekOne</a>
     </div>
     <section>
         <h2>Why I Love Photography with Canon 5D Mark IV</h2>
-        <p>
-            I wanted to share a bit of my own passion for photography, especially using the Canon 5D Mark IV. It’s an incredible camera for both creative expression and technical exploration. Given your background, I think you’d find the intersection between photography and technology interesting. Here’s why:
-        </p>
-        <ul>
-            <li><strong>Sensor Technology and Image Processing:</strong> The 5D Mark IV uses a full-frame 30.4MP sensor</li>
-            <li><strong>Autofocus and Computational Photography:</strong> The camera features a 61-point autofocus system</li>
-            <li><strong>RAW Image Data:</strong> The ability to shoot in RAW allows you to capture uncompressed data</li>
-            <li><strong>4K Video and Computing:</strong> The 5D Mark IV also shoots 4K video</li>
-        </ul>
-
-        <h2>Photos I Took</h2>
         <p>Here are a few shots I’ve taken with the Canon 5D Mark IV:</p>
 
         <!-- Form to select image-->
@@ -170,22 +174,21 @@
         <div class="gallery" id="gallery">
             <div class="gallery-item" id="image0" draggable="true" ondragstart="drag(event)">
                 <img src="p.jpeg" alt="Turkey">
-                <p><strong>Turkey:</strong> captured in alaiye, Turkey</p>
+                <div class="text-overlay">Captured in Alaiye, Turkey</div>
             </div>
             <div class="gallery-item" id="image1" draggable="true" ondragstart="drag(event)">
                 <img src="p1.jpeg" alt="London">
-                <p><strong>London:</strong> heritage and historical building</p>
+                <div class="text-overlay">Heritage and Historical Building in London</div>
             </div>
             <div class="gallery-item" id="image2" draggable="true" ondragstart="drag(event)">
                 <img src="p5.jpeg" alt="Manchester">
-                <p><strong>Manchester:</strong> AWS civil servant event in London</p>
+                <div class="text-overlay">AWS Civil Servant Event in London</div>
             </div>
             <div class="gallery-item" id="image3" draggable="true" ondragstart="drag(event)">
                 <img src="p4.jpeg" alt="Koinonia">
-                <p><strong>London:</strong> Koinonia Crusade in Manchester</p>
+                <div class="text-overlay">Koinonia Crusade in Manchester</div>
             </div>
         </div>
-
         <p>The 5D Mark IV is definitely a powerhouse, and if you ever want to dive into the intersection of photography and computing, there’s a lot of interesting work to explore! Would love to hear your thoughts.</p>
     </section>
 </main>
@@ -195,20 +198,6 @@
 </footer>
 
 <script>
-    // highlight the selected image
-    function highlightFavorite() {
-        const selectedIndex = document.getElementById('imageSelect').value;
-
-        const galleryItems = document.querySelectorAll('.gallery-item img');
-        galleryItems.forEach(item => {
-            item.classList.remove('highlight');
-        });
-
-        // Add the highlight
-        const selectedImage = document.querySelectorAll('.gallery-item')[selectedIndex].querySelector('img');
-        selectedImage.classList.add('highlight');
-    }
-
     // Drag and Drop Functions
     function drag(event) {
         event.dataTransfer.setData("text", event.target.id);
@@ -241,6 +230,19 @@
             }
         }
     });
+
+    window.onload = function() {
+        const textOverlays = document.querySelectorAll('.text-overlay');
+
+        const goldColor = '#FFD700';
+
+        const shadowColor = 'rgba(51, 51, 51, 0.7)';
+
+        textOverlays.forEach(function(overlay) {
+            overlay.style.color = goldColor;
+            overlay.style.textShadow = `2px 2px 5px ${shadowColor}`;
+        });
+    };
 </script>
 </body>
 </html>
