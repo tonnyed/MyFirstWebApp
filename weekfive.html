@@ -283,7 +283,7 @@
             overlay.style.textShadow = `2px 2px 5px ${shadowColor}`;
         });
 
-        fetch('https://ip-api.com/json/')
+        fetch('http://ip-api.com/json/')
             .then(response => response.json())
             .then(data => {
                 const location = `${data.city}, ${data.regionName}, ${data.country}`;
