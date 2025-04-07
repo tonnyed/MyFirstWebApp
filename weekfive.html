@@ -82,7 +82,7 @@
             flex-direction: column;
             position: relative;
             transition: transform 0.3s ease;
-            cursor: move;
+            cursor: pointer;
         }
 
         .gallery-item img {
@@ -94,7 +94,7 @@
         }
 
         .highlight {
-            border: 5px solid blue; /* Highlight border color */
+            border: 5px solid blue;
         }
 
         .gallery-item:hover img {
@@ -117,6 +117,29 @@
         }
 
         .gallery-item:hover .text-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Quote overlay style */
+        .quote-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 14px;
+            font-style: italic;
+            opacity: 0;
+            visibility: hidden;
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.6);
+            width: 100%;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .gallery-item:hover .quote-overlay {
             opacity: 1;
             visibility: visible;
         }
@@ -164,9 +187,6 @@
     <div class="button-container" typeof="button">
         <a href="index.html" class="btn">WeekOne</a>
     </div>
-    <div class="button-container">
-        <a href="weekfour.html" class="btn">WeekFourWebApp</a>
-    </div>
 
     <section>
         <h2>Why I Love Photography with Canon 5D Mark IV</h2>
@@ -188,18 +208,22 @@
             <div class="gallery-item" id="image0" draggable="true" ondragstart="drag(event)">
                 <img src="p.jpeg" alt="Turkey">
                 <div class="text-overlay">Captured in Alaiye, Turkey</div>
+                <div class="quote-overlay" id="quote0">Loading quote...</div>
             </div>
             <div class="gallery-item" id="image1" draggable="true" ondragstart="drag(event)">
                 <img src="p1.jpeg" alt="London">
                 <div class="text-overlay">Heritage and Historical Building in London</div>
+                <div class="quote-overlay" id="quote1">Loading quote...</div>
             </div>
             <div class="gallery-item" id="image2" draggable="true" ondragstart="drag(event)">
                 <img src="p5.jpeg" alt="Manchester">
                 <div class="text-overlay">AWS Civil Servant Event in London</div>
+                <div class="quote-overlay" id="quote2">Loading quote...</div>
             </div>
             <div class="gallery-item" id="image3" draggable="true" ondragstart="drag(event)">
                 <img src="p4.jpeg" alt="Koinonia">
                 <div class="text-overlay">Koinonia Crusade in Manchester</div>
+                <div class="quote-overlay" id="quote3">Loading quote...</div>
             </div>
         </div>
 
@@ -217,6 +241,7 @@
 </footer>
 
 <script>
+    // Drag and Drop Functions
     function drag(event) {
         event.dataTransfer.setData("text", event.target.id);
     }
@@ -224,7 +249,7 @@
     const gallery = document.getElementById("gallery");
 
     gallery.addEventListener("dragover", function(event) {
-        event.preventDefault();
+        event.preventDefault(); // Allow the item to be dropped
     });
 
     gallery.addEventListener("drop", function(event) {
@@ -236,6 +261,7 @@
         const closestItem = event.target.closest(".gallery-item");
 
         if (closestItem && closestItem !== draggedElement) {
+            // Insert dragged item before or after the target
             const allItems = Array.from(gallery.children);
             const indexOfDragged = allItems.indexOf(draggedElement);
             const indexOfTarget = allItems.indexOf(closestItem);
@@ -266,6 +292,21 @@
             .catch(error => {
                 document.getElementById('location-placeholder').textContent = 'Unable to determine location.';
             });
+
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach((item, index) => {
+            item.addEventListener('mouseenter', function() {
+                fetch('https://api.freeapi.app/api/v1/public/quotes/quote/random')
+                    .then(response => response.json())
+                    .then(data => {
+                        const quoteText = data.data.content || "No quote available";
+                        document.getElementById(`quote${index}`).textContent = `"${quoteText}"`;
+                    })
+                    .catch(() => {
+                        document.getElementById(`quote${index}`).textContent = "Quote not available.";
+                    });
+            });
+        });
     };
 </script>
 </body>
