@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Photography with Canon 5D Mark IV</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f0f0f0, #d1d1d1);
+            color: #333;
+        }
+
+        header {
+            position: relative;
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            border-bottom: 5px solid #f0f0f0;
+        }
+
+        header img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            height: auto;
+            filter: brightness(70%);
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(51, 51, 51, 0.6), rgba(51, 51, 51, 0.3));
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: calc(1.3rem + 2vw);
+            position: relative;
+            z-index: 2;
+        }
+
+        p {
+            font-size: calc(0.3rem + 1.1vw);
+            position: relative;
+            z-index: 2;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section h2 {
+            font-size: calc(0.7rem + 2vw);
+            margin-bottom: 10px;
+        }
+
+        section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: space-between;
+        }
+
+        .gallery-item {
+            flex: 1 1 calc(25% - 15px);
+            max-width: calc(25% - 15px);
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.3s ease;
+            cursor: move;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight {
+            border: 5px solid blue; /* Highlight border color */
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            text-align: center;
+            text-shadow: 2px 2px 5px black;
+        }
+
+        .gallery-item:hover .text-overlay {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .form-container {
+            margin: 20px 0;
+        }
+
+        .form-container select {
+            font-size: 16px;
+            padding: 8px;
+        }
+
+        .location-placeholder {
+            font-weight: bold;
+            color: #333;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <img src="5d.jpeg" alt="5d mark IV" width="100%" style="max-width: 100%; height: auto;">
+    <h1>Photography with Canon 5D Mark IV</h1>
+    <p>Sharing my interest in photography and some cool features of the Canon 5D Mark IV.</p>
+</header>
+
+<main>
+    <p>Click the button below to go to the second page where I say "Welcome to my second page".</p>
+
+    <div class="button-container">
+        <a href="second-page.html" class="btn">MySecondWebApp</a>
+    </div>
+    <div class="button-container" typeof="button">
+        <a href="index.html" class="btn">WeekOne</a>
+    </div>
+    <div class="button-container">
+        <a href="weekfour.html" class="btn">WeekFourWebApp</a>
+    </div>
+
+    <section>
+        <h2>Why I Love Photography with Canon 5D Mark IV</h2>
+        <p>Here are a few shots I’ve taken with the Canon 5D Mark IV:</p>
+
+        <!-- Form to select image-->
+        <div class="form-container">
+            <label for="imageSelect">Select Your Favorite Image:</label>
+            <select id="imageSelect" name="imageSelect" onchange="highlightFavorite()" required>
+                <option value="0">Turkey</option>
+                <option value="1">London</option>
+                <option value="2">Manchester</option>
+                <option value="3">Koinonia</option>
+            </select>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="gallery" id="gallery">
+            <div class="gallery-item" id="image0" draggable="true" ondragstart="drag(event)">
+                <img src="p.jpeg" alt="Turkey">
+                <div class="text-overlay">Captured in Alaiye, Turkey</div>
+            </div>
+            <div class="gallery-item" id="image1" draggable="true" ondragstart="drag(event)">
+                <img src="p1.jpeg" alt="London">
+                <div class="text-overlay">Heritage and Historical Building in London</div>
+            </div>
+            <div class="gallery-item" id="image2" draggable="true" ondragstart="drag(event)">
+                <img src="p5.jpeg" alt="Manchester">
+                <div class="text-overlay">AWS Civil Servant Event in London</div>
+            </div>
+            <div class="gallery-item" id="image3" draggable="true" ondragstart="drag(event)">
+                <img src="p4.jpeg" alt="Koinonia">
+                <div class="text-overlay">Koinonia Crusade in Manchester</div>
+            </div>
+        </div>
+
+        <!-- Location placeholder -->
+        <div class="location-placeholder" id="location-placeholder">
+            Loading your location...
+        </div>
+
+        <p>The 5D Mark IV is definitely a powerhouse, and if you ever want to dive into the intersection of photography and computing, there’s a lot of interesting work to explore! Would love to hear your thoughts.</p>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 Web Technologies Assessment Website</p>
+</footer>
+
+<script>
+    function drag(event) {
+        event.dataTransfer.setData("text", event.target.id);
+    }
+
+    const gallery = document.getElementById("gallery");
+
+    gallery.addEventListener("dragover", function(event) {
+        event.preventDefault();
+    });
+
+    gallery.addEventListener("drop", function(event) {
+        event.preventDefault();
+
+        const draggedImageId = event.dataTransfer.getData("text");
+        const draggedElement = document.getElementById(draggedImageId);
+
+        const closestItem = event.target.closest(".gallery-item");
+
+        if (closestItem && closestItem !== draggedElement) {
+            const allItems = Array.from(gallery.children);
+            const indexOfDragged = allItems.indexOf(draggedElement);
+            const indexOfTarget = allItems.indexOf(closestItem);
+
+            if (indexOfDragged < indexOfTarget) {
+                gallery.insertBefore(draggedElement, closestItem.nextSibling);
+            } else {
+                gallery.insertBefore(draggedElement, closestItem);
+            }
+        }
+    });
+
+    window.onload = function() {
+        const textOverlays = document.querySelectorAll('.text-overlay');
+        const goldColor = '#FFD700';
+        const shadowColor = 'rgba(51, 51, 51, 0.7)';
+        textOverlays.forEach(function(overlay) {
+            overlay.style.color = goldColor;
+            overlay.style.textShadow = `2px 2px 5px ${shadowColor}`;
+        });
+
+        fetch('https://ip-api.com/json/')
+            .then(response => response.json())
+            .then(data => {
+                const location = `${data.city}, ${data.regionName}, ${data.country}`;
+                document.getElementById('location-placeholder').textContent = `You are visiting from: ${location}`;
+            })
+            .catch(error => {
+                document.getElementById('location-placeholder').textContent = 'Unable to determine location.';
+            });
+    };
+</script>
+</body>
+</html>
