@@ -283,10 +283,10 @@
             overlay.style.textShadow = `2px 2px 5px ${shadowColor}`;
         });
 
-        fetch('http://ip-api.com/json/')
+        fetch('https://ipinfo.io/json')
             .then(response => response.json())
             .then(data => {
-                const location = `${data.city}, ${data.regionName}, ${data.country}`;
+                const location = `${data.city}, ${data.region}, ${data.country}`;
                 document.getElementById('location-placeholder').textContent = `You are visiting from: ${location}`;
             })
             .catch(error => {
