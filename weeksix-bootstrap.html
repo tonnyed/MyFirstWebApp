@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photography with Canon 5D Mark IV</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        header {
+          position: relative;
+          text-align: center;
+          color: white;
+        }
+
+        header img {
+          width: 100%;
+          height: auto;
+          filter: brightness(70%);
+        }
+
+        header::before {
+          content: "";
+          position: absolute;
+          top: 0; left: 0;
+          width: 100%; height: 100%;
+          background: linear-gradient(135deg, rgba(0,0,0,0.5), rgba(0,0,0,0.3));
+          z-index: 1;
+        }
+
+        header h1, header p {
+          position: relative;
+          z-index: 2;
+        }
+
+        .gallery-item {
+          position: relative;
+          cursor: pointer;
+        }
+
+        .gallery-item img {
+          width: 100%;
+          height: 250px;
+          object-fit: cover;
+          border-radius: 8px;
+          transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+          transform: scale(1.05);
+        }
+
+        .highlight {
+          border: 4px solid #0d6efd !important;
+        }
+
+        .text-overlay, .quote-overlay {
+          position: absolute;
+          color: white;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          text-shadow: 1px 1px 4px black;
+        }
+
+        .text-overlay {
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-weight: bold;
+          font-size: 1rem;
+        }
+
+        .quote-overlay {
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          font-style: italic;
+          background: rgba(0, 0, 0, 0.6);
+          width: 100%;
+          padding: 0.5rem;
+          text-align: center;
+        }
+
+        .gallery-item:hover .text-overlay,
+        .gallery-item:hover .quote-overlay {
+          opacity: 1;
+        }
+
+        .success-message {
+          display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header class="bg-dark text-white py-4">
+    <img src="5d.jpeg" alt="Canon 5D Mark IV" class="img-fluid w-100" style="max-height: 500px; object-fit: cover;">
+    <div class="container">
+        <h1 class="mt-3">Photography with Canon 5D Mark IV</h1>
+        <p>Sharing my interest in photography and some cool features of the Canon 5D Mark IV.</p>
+    </div>
+</header>
+
+<main class="container my-5">
+    <section class="mb-4">
+        <h2 class="mb-3">Why I Love Photography</h2>
+        <label for="imageSelect" class="form-label">Select Your Favorite Image:</label>
+        <select id="imageSelect" class="form-select">
+            <option value="0">Turkey</option>
+            <option value="1">London</option>
+            <option value="2">Manchester</option>
+            <option value="3">Koinonia</option>
+        </select>
+    </section>
+
+    <div class="row g-3 mb-4" id="gallery">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="gallery-item" id="image0" draggable="true">
+                <img src="p.jpeg" alt="Turkey" class="img-fluid">
+                <div class="text-overlay">Captured in Alaiye, Turkey</div>
+                <div class="quote-overlay" id="quote0">Loading quote...</div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="gallery-item" id="image1" draggable="true">
+                <img src="p1.jpeg" alt="London" class="img-fluid">
+                <div class="text-overlay">Historical Building in London</div>
+                <div class="quote-overlay" id="quote1">Loading quote...</div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="gallery-item" id="image2" draggable="true">
+                <img src="p5.jpeg" alt="Manchester" class="img-fluid">
+                <div class="text-overlay">Civil Servant Event</div>
+                <div class="quote-overlay" id="quote2">Loading quote...</div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="gallery-item" id="image3" draggable="true">
+                <img src="p4.jpeg" alt="Koinonia" class="img-fluid">
+                <div class="text-overlay">Koinonia Crusade</div>
+                <div class="quote-overlay" id="quote3">Loading quote...</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="location-placeholder" class="fw-bold mb-5">Loading your location...</div>
+
+    <section>
+        <h2>Contact Me</h2>
+        <form id="contactForm">
+            <div class="mb-3">
+                <label for="name" class="form-label">Your Name:</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Your Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Message:</label>
+                <textarea id="message" name="message" class="form-control" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+        </form>
+
+        <div id="successMessage" class="alert alert-success mt-4 success-message">
+            Thank you for your message! We will get back to you soon.
+        </div>
+    </section>
+</main>
+
+<footer class="bg-dark text-white text-center py-3">
+    <p>© 2025 Web Technologies Assessment Website</p>
+</footer>
+
+<!-- Bootstrap Bundle JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+      $('#contactForm').on('submit', function (e) {
+        e.preventDefault();
+        $('#successMessage').fadeIn();
+        $(this)[0].reset();
+      });
+
+      $('#imageSelect').on('change', function () {
+        $('.gallery-item').removeClass('highlight');
+        $(`#image${$(this).val()}`).addClass('highlight');
+      });
+
+      $.getJSON('https://ipinfo.io/json', function (data) {
+        $('#location-placeholder').text(`You are visiting from: ${data.city}, ${data.region}, ${data.country}`);
+      }).fail(function () {
+        $('#location-placeholder').text('Unable to determine location.');
+      });
+
+      $('.gallery-item').each(function (index) {
+        $(this).on('mouseenter', function () {
+          $.getJSON('https://api.freeapi.app/api/v1/public/quotes/quote/random', function (data) {
+            $(`#quote${index}`).text(`"${data.data?.content || 'No quote available'}"`);
+          }).fail(function () {
+            $(`#quote${index}`).text('Quote not available.');
+          });
+        });
+      });
+
+      $('.gallery-item').on('dragstart', function (e) {
+        e.originalEvent.dataTransfer.setData("text", this.id);
+      });
+
+      $('#gallery').on('dragover', function (e) {
+        e.preventDefault();
+      });
+
+      $('#gallery').on('drop', function (e) {
+        e.preventDefault();
+        const draggedId = e.originalEvent.dataTransfer.getData("text");
+        const draggedElement = document.getElementById(draggedId);
+        const dropTarget = $(e.target).closest('.gallery-item')[0];
+
+        if (dropTarget && dropTarget !== draggedElement) {
+          const container = $('#gallery')[0];
+          const allItems = Array.from(container.children);
+          const draggedIndex = allItems.indexOf(draggedElement.parentElement);
+          const targetIndex = allItems.indexOf(dropTarget.parentElement);
+
+          if (draggedIndex < targetIndex) {
+            $(dropTarget.parentElement).after(draggedElement.parentElement);
+          } else {
+            $(dropTarget.parentElement).before(draggedElement.parentElement);
+          }
+        }
+      });
+    });
+</script>
+
+</body>
+</html>
